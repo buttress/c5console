@@ -1,0 +1,49 @@
+{
+    "name": "buttress/c5console",
+    "type": "library",
+    "description": "Manage concrete5 sites from the CLI",
+    "keywords": [
+        "buttress",
+        "c5console"
+    ],
+    "homepage": "https://github.com/buttress/c5console",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Korvin Szanto",
+            "email": "korvinszanto@gmail.com",
+            "homepage": "https://github.com/korvinszanto",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php" : "~5.6|~7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "~4.0||~5.0||~6.0",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Buttress\\Concrete\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Buttress\\Concrete\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
