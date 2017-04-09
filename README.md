@@ -18,7 +18,7 @@ A CLI tool for managing concrete5 sites.
 Globally via Composer
 
 ``` bash
-$ composer require -g buttress/c5console
+$ composer global require buttress/c5console
 ```
 
 ## Usage
