@@ -7,6 +7,7 @@ use Buttress\Concrete\CommandBus\Command\HandlerLocator;
 use Buttress\Concrete\CommandBus\Provider\Legacy;
 use Buttress\Concrete\CommandBus\Provider\Modern;
 use Buttress\Concrete\Console\Command\Collection\Collection;
+use Buttress\Concrete\Console\Command\HelpCommand;
 use Buttress\Concrete\Exception\BaseException;
 use Buttress\Concrete\Exception\VersionMismatchException;
 use Buttress\Concrete\Locator\Site;
@@ -41,7 +42,8 @@ class Console
      * @var string[]
      */
     protected $commands = [
-        CacheCommand::class
+        CacheCommand::class,
+        HelpCommand::class
     ];
 
     /**
@@ -137,7 +139,8 @@ class Console
     private function runCallable(CLImate $cli, callable $callable, array $data)
     {
         try {
-            return $callable(...$data);
+
+            return $callable($this->site, ...$data);
         } catch (VersionMismatchException $e) {
             $cli->error('Invalid Version: ' . $e->getMessage())
                 ->dim(sprintf('Detected version "%s"', $e->getVersion()));

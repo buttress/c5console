@@ -9,6 +9,8 @@ use Buttress\Concrete\Locator\Site;
 use Buttress\Concrete\Route\RouteCollector;
 use League\CLImate\Argument\Manager;
 use League\CLImate\CLImate;
+use League\CLImate\Util\Output;
+use League\CLImate\Util\Writer\Buffer;
 use League\Tactician\CommandBus;
 
 class CacheCommand implements Command
@@ -29,8 +31,18 @@ class CacheCommand implements Command
     /**
      * Handles `c5 cache:clear`
      */
-    public function clear()
+    public function clear(Site $site)
     {
+        list($clear) = $commands = $this->getCommands($site);
+
+        $clear->parse();
+
+        if ($clear->get('quiet')) {
+            $this->cli->output->defaultTo('buffer');
+        }
+
+        $this->cli->confirm('Really clear the site cache?');
+
         // Notify that we've started
         $this->cli->dim('Clearing cache...');
 
@@ -56,6 +68,13 @@ class CacheCommand implements Command
         if ($this->enabled($site)) {
             $clear = new CommandManager('cache:clear');
             $clear->description('Clear the site cache');
+            $clear->add([
+                'quiet' => [
+                    'prefix' => 'q',
+                    'longPrefix' => 'quiet',
+                    'noValue' => true
+                ]
+            ]);
 
             $commands[] = $clear;
         }

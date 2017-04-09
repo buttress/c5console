@@ -4,7 +4,7 @@ namespace Buttress\Concrete\CommandBus\Provider;
 
 use Buttress\Concrete\CommandBus\Command\Cache\Clear;
 use Buttress\Concrete\CommandBus\Command\HandlerLocator;
-use Buttress\Concrete\CommandBus\Handler\Version8\CacheHandler;
+use Buttress\Concrete\CommandBus\Handler\Modern\CacheHandler;
 use Buttress\Concrete\Locator\Site;
 
 /**

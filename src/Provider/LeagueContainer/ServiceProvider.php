@@ -63,7 +63,7 @@ class ServiceProvider extends AbstractServiceProvider
         $container->share(Site::class, function() use ($container) {
             $site = $container->get(Locator::class)->getLocation();
             if (!$site) {
-                throw new \RuntimeException('Unable to locate concrete5');
+                $site = new Site();
             }
             return $site;
         });

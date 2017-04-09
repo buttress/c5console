@@ -26,7 +26,7 @@ class CacheHandler
         $this->adapter->attach();
 
         // Get the application and clear caches
-        $this->communicator->getApplication()->clearCaches();
+        $this->adapter->getApplication()->clearCaches();
     }
 
 }
