@@ -1,8 +1,18 @@
 #!/usr/bin/env php
 <?php
+
 $root = dirname(__DIR__);
-if (file_exists($root . '/vendor/autoload.php')) {
-    require_once $root . '/vendor/autoload.php';
+$check = [
+    $root . '/vendor',
+    dirname($root), // Included in a windows composer project
+    dirname(dirname($root)) // Included in a unix composer project
+];
+
+foreach ($check as $path) {
+    if (file_exists($path . '/autoload.php')) {
+        require_once $path . '/autoload.php';
+        break;
+    }
 }
 
 function dd(...$args)
