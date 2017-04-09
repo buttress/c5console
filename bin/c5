@@ -1,7 +1,8 @@
 #!/usr/bin/env php
 <?php
-if (file_exists('/vendor/autoload.php')) {
-    require_once dirname(__DIR__) . '/vendor/autoload.php';
+$root = dirname(__DIR__);
+if (file_exists($root . '/vendor/autoload.php')) {
+    require_once $root . '/vendor/autoload.php';
 }
 
 function dd(...$args)
