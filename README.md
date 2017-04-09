@@ -27,17 +27,16 @@ vendor/
 
 ## Install
 
-Via Composer
+Globally via Composer
 
 ``` bash
-$ composer require buttress/c5console
+$ composer require -g buttress/c5console
 ```
 
 ## Usage
 
-``` php
-$skeleton = new Buttress\Concrete();
-echo $skeleton->echoPhrase('Hello, League!');
+``` bash
+$ c5 help
 ```
 
 ## Change log
@@ -45,6 +44,8 @@ echo $skeleton->echoPhrase('Hello, League!');
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Testing
+
+(Not tested yet)
 
 ``` bash
 $ composer test
