@@ -56,7 +56,6 @@ class ServiceProvider extends AbstractServiceProvider
             }
         )->withArguments([ClassNameExtractor::class, HandlerLocator::class, HandleClassNameInflector::class]);
 
-
         // Share the console object
         $container->share(Console::class)
             ->withArgument($container)

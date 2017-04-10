@@ -7,7 +7,7 @@ class ModernAdapter implements Adapter
 {
 
     /** @var \Concrete\Core\Application\Application */
-    protected $app;
+    protected static $app;
 
     /** @var \Buttress\Concrete\Locator\Site $site */
     protected $site;
@@ -23,7 +23,7 @@ class ModernAdapter implements Adapter
      */
     public function getApplication()
     {
-        return $this->app;
+        return static::$app;
     }
 
     /**
@@ -32,7 +32,9 @@ class ModernAdapter implements Adapter
      */
     public function attach()
     {
-        $this->app = $this->resolveApplication();
+        if (!static::$app) {
+            static::$app = $this->resolveApplication();
+        }
     }
 
     /**
@@ -42,6 +44,7 @@ class ModernAdapter implements Adapter
     private function resolveApplication()
     {
         $path = $this->site->getPath();
+        chdir($path);
 
         // Define some required constants
         define('DIR_BASE', $path);

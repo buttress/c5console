@@ -16,6 +16,7 @@ use Buttress\Concrete\Locator\Site;
 use Buttress\Concrete\Route\Dispatcher;
 use Buttress\Concrete\Route\RouteCollector;
 use League\CLImate\CLImate;
+use League\Tactician\Exception\MissingHandlerException;
 use Psr\Container\ContainerInterface;
 
 /**
@@ -45,7 +46,8 @@ class Console
      */
     protected $commands = [
         CacheCommand::class,
-        HelpCommand::class
+        HelpCommand::class,
+        PackageCommand::class
     ];
 
     /**

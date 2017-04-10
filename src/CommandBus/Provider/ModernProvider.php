@@ -4,7 +4,11 @@ namespace Buttress\Concrete\CommandBus\Provider;
 
 use Buttress\Concrete\CommandBus\Command\Cache\Clear;
 use Buttress\Concrete\CommandBus\Command\HandlerLocator;
+use Buttress\Concrete\CommandBus\Command\Package\Install;
+use Buttress\Concrete\CommandBus\Command\Package\ListPackages;
+use Buttress\Concrete\CommandBus\Command\Package\Uninstall;
 use Buttress\Concrete\CommandBus\Handler\Modern\CacheHandler;
+use Buttress\Concrete\CommandBus\Handler\Modern\PackageHandler;
 use Buttress\Concrete\Locator\Site;
 
 /**
@@ -20,7 +24,10 @@ class ModernProvider implements Provider
             return;
         }
 
-        // Add a handler for the `Clear` command
+        // Add handlers
         $locator->pushHandler(Clear::class, CacheHandler::class);
+        $locator->pushHandler(Install::class, PackageHandler::class);
+        $locator->pushHandler(Uninstall::class, PackageHandler::class);
+        $locator->pushHandler(ListPackages::class, PackageHandler::class);
     }
 }
