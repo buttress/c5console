@@ -8,7 +8,9 @@ use Buttress\Concrete\CommandBus\Provider\LegacyProvider;
 use Buttress\Concrete\CommandBus\Provider\ModernProvider;
 use Buttress\Concrete\Console\Command\Collection\Collection;
 use Buttress\Concrete\Console\Command\HelpCommand;
+use Buttress\Concrete\Console\Command\PackageCommand;
 use Buttress\Concrete\Exception\BaseException;
+use Buttress\Concrete\Exception\RuntimeException;
 use Buttress\Concrete\Exception\VersionMismatchException;
 use Buttress\Concrete\Locator\Site;
 use Buttress\Concrete\Route\Dispatcher;
@@ -98,10 +100,12 @@ class Console
      */
     protected function dispatch(Dispatcher $dispatcher, CLImate $cli)
     {
-        $result = $dispatcher->dispatch($this->commandName);
+        $command = $this->commandName ?: 'help';
+
+        $result = $dispatcher->dispatch($command);
         switch ($result[0]) {
             case 0:
-                $cli->error(sprintf('Command "%s" not found.', $this->commandName));
+                $cli->error(sprintf('Command "%s" not found.', $command));
                 return 1;
             case 1:
                 list(, $callable, $data) = $result;
@@ -136,9 +140,20 @@ class Console
      * @param array $data
      * @return int
      */
-    private function runCallable(CLImate $cli, callable $callable, array $data)
+    private function runCallable(CLImate $cli, $callable, array $data)
     {
         try {
+            if (is_string($callable) && strpos($callable, '::')) {
+                list($class, $method) = explode('::', $callable, 2);
+                $callable = [$this->container->get($class), $method];
+            } else {
+                $callable = $this->container->get($callable);
+            }
+
+            if (!is_callable($callable)) {
+                throw new RuntimeException('Invalid route callable');
+            }
+
             return $callable($this->site, ...$data);
         } catch (VersionMismatchException $e) {
             $cli->error('Invalid Version: ' . $e->getMessage())
