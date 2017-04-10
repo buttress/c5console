@@ -114,7 +114,14 @@ class InstallController
 
     private function confirmHandle($packages)
     {
-        $this->cli->green()->columns($packages)->br();
+
+        $green = $this->cli->green();
+
+        if (count($packages) < 10) {
+            $green->out($packages);
+        } else {
+            $green->columns($packages);
+        }
 
         $input = $this->cli->input('Which package?');
         $input->accept($packages);

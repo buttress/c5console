@@ -4,7 +4,11 @@ namespace Buttress\Concrete\CommandBus\Provider;
 
 use Buttress\Concrete\CommandBus\Command\Cache\Clear;
 use Buttress\Concrete\CommandBus\Command\HandlerLocator;
+use Buttress\Concrete\CommandBus\Command\Package\Install;
+use Buttress\Concrete\CommandBus\Command\Package\ListPackages;
+use Buttress\Concrete\CommandBus\Command\Package\Uninstall;
 use Buttress\Concrete\CommandBus\Handler\Legacy\CacheHandler;
+use Buttress\Concrete\CommandBus\Handler\Legacy\PackageHandler;
 use Buttress\Concrete\Locator\Site;
 
 /**
@@ -22,5 +26,8 @@ class LegacyProvider implements Provider
 
         // Add a handler for the "Clear" command
         $locator->pushHandler(Clear::class, CacheHandler::class);
+        $locator->pushHandler(Install::class, PackageHandler::class);
+        $locator->pushHandler(Uninstall::class, PackageHandler::class);
+        $locator->pushHandler(ListPackages::class, PackageHandler::class);
     }
 }

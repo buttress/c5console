@@ -1,6 +1,7 @@
 <?php
 namespace Buttress\Concrete\Adapter;
 
+use Buttress\Concrete\Console\Console;
 use Buttress\Concrete\Exception\VersionMismatchException;
 use Buttress\Concrete\Locator\Site;
 
@@ -14,9 +15,13 @@ class LegacyAdapter implements Adapter
     /** @var \Buttress\Concrete\Locator\Site $site */
     protected $site;
 
-    public function __construct(Site $site)
+    /** @var \Buttress\Concrete\Console\Console */
+    protected $console;
+
+    public function __construct(Site $site, Console $console)
     {
         $this->site = $site;
+        $this->console = $console;
     }
 
     /**
@@ -48,5 +53,7 @@ class LegacyAdapter implements Adapter
 
         // Load in legacy dispatcher
         require_once $path . '/concrete/dispatcher.php';
+
+        $this->console->registerErrorHandler();
     }
 }

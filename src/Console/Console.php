@@ -18,6 +18,9 @@ use Buttress\Concrete\Route\RouteCollector;
 use League\CLImate\CLImate;
 use League\Tactician\Exception\MissingHandlerException;
 use Psr\Container\ContainerInterface;
+use Psr\Log\LoggerInterface;
+use Whoops\Handler\PlainTextHandler;
+use Whoops\Run;
 
 /**
  * The main entry point to the c5console project
@@ -93,6 +96,7 @@ class Console
     {
         $this->registerCommands();
         $this->registerHandlers();
+        $this->registerErrorHandler();
         return $this;
     }
 
@@ -167,5 +171,14 @@ class Console
         }
 
         return 1;
+    }
+
+    public function registerErrorHandler()
+    {
+        $runner = new Run();
+        $handler = new PlainTextHandler($this->container->get(LoggerInterface::class));
+        $handler->loggerOnly(true);
+        $runner->pushHandler($handler);
+        $runner->register();
     }
 }

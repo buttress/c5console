@@ -17,8 +17,6 @@ use League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor;
 use League\Tactician\Handler\MethodNameInflector\HandleClassNameInflector;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
-use Whoops\Handler\PlainTextHandler;
-use Whoops\Run;
 
 class ServiceProvider extends AbstractServiceProvider
 {
@@ -75,12 +73,5 @@ class ServiceProvider extends AbstractServiceProvider
 
         // Share the logger class
         $container->share(LoggerInterface::class, Logger::class)->withArgument(CLImate::class);
-
-        // Set up error handling
-        $runner = new Run();
-        $handler = new PlainTextHandler($container->get(LoggerInterface::class));
-        $handler->loggerOnly(true);
-        $runner->pushHandler($handler);
-        $runner->register();
     }
 }

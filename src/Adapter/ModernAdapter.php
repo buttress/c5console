@@ -1,6 +1,7 @@
 <?php
 namespace Buttress\Concrete\Adapter;
 
+use Buttress\Concrete\Console\Console;
 use Buttress\Concrete\Locator\Site;
 
 class ModernAdapter implements Adapter
@@ -12,9 +13,13 @@ class ModernAdapter implements Adapter
     /** @var \Buttress\Concrete\Locator\Site $site */
     protected $site;
 
-    public function __construct(Site $site)
+    /** @var \Buttress\Concrete\Console\Console */
+    protected $console;
+
+    public function __construct(Site $site, Console $console)
     {
         $this->site = $site;
+        $this->console = $console;
     }
 
     /**
@@ -64,6 +69,7 @@ class ModernAdapter implements Adapter
         $runtime = $cms->getRuntime();
         $runtime->boot();
 
+        $this->console->registerErrorHandler();
         return $cms;
     }
 }
