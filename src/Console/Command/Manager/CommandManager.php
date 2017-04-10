@@ -2,10 +2,10 @@
 
 namespace Buttress\Concrete\Console\Command\Manager;
 
-use Buttress\Concrete\Console\Command\Argument\Argument;
 use Buttress\Concrete\Console\Command\Argument\Parser;
 use Buttress\Concrete\Console\Command\Argument\Summary;
 use Buttress\Concrete\Exception\RuntimeException;
+use League\CLImate\Argument\Argument;
 use League\CLImate\Argument\Filter;
 use League\CLImate\Argument\Manager;
 use League\CLImate\CLImate;
@@ -56,7 +56,7 @@ class CommandManager extends Manager
             $argument = Argument::createFromArray($argument, $options);
         }
 
-        if (!($argument instanceof \League\CLImate\Argument\Argument)) {
+        if (!($argument instanceof Argument)) {
             throw new RuntimeException('Please provide an argument name or object.');
         }
 

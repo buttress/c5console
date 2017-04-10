@@ -2,8 +2,6 @@
 
 namespace Buttress\Concrete\Console\Command\Argument;
 
-use League\CLImate\CLImate;
-
 class Summary extends \League\CLImate\Argument\Summary
 {
 
@@ -29,7 +27,7 @@ class Summary extends \League\CLImate\Argument\Summary
     /**
      * Output the short summary
      */
-    public function summarize(CLImate $cli=null)
+    public function summarize()
     {
         return "<yellow>Usage</yellow>: <dim>c5</dim> <bold>{$this->command}</bold> <dim>" . $this->short($this->getOrderedArguments()) . '</dim>';
     }

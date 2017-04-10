@@ -40,6 +40,8 @@ class Logger implements LoggerInterface
         switch ($level) {
             case LogLevel::NOTICE:
             case LogLevel::INFO:
+            case LogLevel::WARNING:
+            case LogLevel::ALERT:
                 return $this->handleInfo($level, $message, $context);
             case LogLevel::DEBUG:
                 return $this->handleDebug($level, $message, $context);
