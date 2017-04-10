@@ -36,6 +36,10 @@ class PackageCommand implements Command
 
     public function registerRoutes(RouteCollector $collector, Site $site = null)
     {
+        if (!$site || !$site->getVersion() || !version_compare($site->getVersion(), '8.0.0') > -1) {
+            return;
+        }
+
         $collector->addGroup('package', function(RouteCollector $collector) {
             // install
             $collector->addRoute(
