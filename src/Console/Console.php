@@ -145,11 +145,13 @@ class Console
     private function runCallable(CLImate $cli, $callable, array $data)
     {
         try {
-            if (is_string($callable) && strpos($callable, '::')) {
-                list($class, $method) = explode('::', $callable, 2);
-                $callable = [$this->container->get($class), $method];
-            } else {
-                $callable = $this->container->get($callable);
+            if (is_string($callable)) {
+                if (strpos($callable, '::')) {
+                    list($class, $method) = explode('::', $callable, 2);
+                    $callable = [$this->container->get($class), $method];
+                } else {
+                    $callable = $this->container->get($callable);
+                }
             }
 
             if (!is_callable($callable)) {
