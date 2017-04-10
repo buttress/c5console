@@ -129,5 +129,4 @@ class InstallController
 
         return $input->prompt();
     }
-
 }

@@ -49,5 +49,4 @@ class ParserTest extends TestCase
         // Set the argv back
         $GLOBALS['argv'] = $old;
     }
-
 }

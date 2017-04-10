@@ -56,7 +56,7 @@ class PackageHandler
 
     private function names(array $packages)
     {
-        return (array) array_map(function($package) {
+        return (array) array_map(function ($package) {
             return $package->getPackageHandle();
         }, $packages);
     }
@@ -116,6 +116,4 @@ class PackageHandler
         /** @var PackageService $service */
         return $application->make(PackageService::class);
     }
-
-
 }

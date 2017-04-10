@@ -71,5 +71,4 @@ class LocatorTest extends TestCase
 
         $this->assertNull($locator->getLocation($dir));
     }
-
 }

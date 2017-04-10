@@ -62,5 +62,4 @@ class LoggerTest extends TestCase
 
         $this->assertContains('test 123', $output);
     }
-
 }

@@ -24,5 +24,4 @@ class Install
         $this->handle = $handle;
         return $this;
     }
-
 }

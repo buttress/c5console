@@ -43,5 +43,4 @@ class WebrootLocatorTest extends TestCase
         $this->assertNull($locator->locateWebroot('/', $test));
         $this->assertNull($locator->locateWebroot($test, '/'));
     }
-
 }

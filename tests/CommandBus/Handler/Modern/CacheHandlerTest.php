@@ -22,5 +22,4 @@ class CacheHandlerTest extends TestCase
         $app->expects($this->once())->method('clearCaches');
         $testHandler->handleClear($this->getMockForAbstractClass(Clear::class));
     }
-
 }

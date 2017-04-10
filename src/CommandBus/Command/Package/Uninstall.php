@@ -24,5 +24,4 @@ class Uninstall
         $this->handle = $handle;
         return $this;
     }
-
 }

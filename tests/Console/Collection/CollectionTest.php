@@ -19,5 +19,4 @@ class CollectionTest extends TestCase
 
         $this->assertEquals([$command, $command], $collection->all());
     }
-
 }

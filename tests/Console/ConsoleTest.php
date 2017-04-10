@@ -60,8 +60,8 @@ class ConsoleTest extends TestCase
 
         $command = $this->getMockForAbstractClass(Command::class);
         $command->expects($this->exactly(2))->method('registerRoutes')
-            ->willReturnCallback(function(RouteCollector $collector) use ($command, &$ran) {
-                $collector->addRoute('test', function() use (&$ran) {
+            ->willReturnCallback(function (RouteCollector $collector) use ($command, &$ran) {
+                $collector->addRoute('test', function () use (&$ran) {
                     $ran = true;
                 });
             });
@@ -91,5 +91,4 @@ class ConsoleTest extends TestCase
 
         $property->setValue($object, $value);
     }
-
 }

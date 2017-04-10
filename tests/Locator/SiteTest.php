@@ -18,5 +18,4 @@ class SiteTest extends TestCase
         $this->assertEquals('newpath', $site->getPath());
         $this->assertEquals('newversion', $site->getVersion());
     }
-
 }

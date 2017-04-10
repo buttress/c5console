@@ -18,7 +18,7 @@ class DispatcherTest extends TestCase
 
     public function testSimpleConstructor()
     {
-        $this->assertInstanceOf(Dispatcher::class, Dispatcher::simpleDispatcher(function(){}));
+        $this->assertInstanceOf(Dispatcher::class, Dispatcher::simpleDispatcher(function () {
+        }));
     }
-
 }

@@ -76,9 +76,8 @@ class PackageHandler
 
     private function names(array $packages)
     {
-        return array_map(function(Package $package) {
+        return array_map(function (Package $package) {
             return $package->getPackageHandle();
         }, $packages);
     }
-
 }

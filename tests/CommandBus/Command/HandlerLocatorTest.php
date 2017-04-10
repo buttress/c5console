@@ -48,5 +48,4 @@ class HandlerLocatorTest extends TestCase
 
         $handler->getHandlerForCommand('test');
     }
-
 }

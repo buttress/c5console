@@ -36,7 +36,7 @@ class PackageCommand implements Command
 
     public function registerRoutes(RouteCollector $collector, Site $site = null)
     {
-        $collector->addGroup('package', function(RouteCollector $collector) {
+        $collector->addGroup('package', function (RouteCollector $collector) {
             // install
             $collector->addRoute(
                 'install',
@@ -56,5 +56,4 @@ class PackageCommand implements Command
             );
         });
     }
-
 }

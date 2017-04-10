@@ -34,5 +34,4 @@ class SummaryTest extends TestCase
 
         $summary->output();
     }
-
 }
