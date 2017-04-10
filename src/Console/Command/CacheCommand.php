@@ -102,7 +102,7 @@ class CacheCommand implements Command
      * @param \Buttress\Concrete\Locator\Site $site
      * @return bool
      */
-    private function enabled(Site $site)
+    private function enabled(Site $site = null)
     {
         return ($site && version_compare($site->getVersion(), '5.5.0') > 0);
     }

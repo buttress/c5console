@@ -4,8 +4,8 @@ namespace Buttress\Concrete\Console;
 
 use Buttress\Concrete\Console\Command\CacheCommand;
 use Buttress\Concrete\CommandBus\Command\HandlerLocator;
-use Buttress\Concrete\CommandBus\Provider\Legacy;
-use Buttress\Concrete\CommandBus\Provider\Modern;
+use Buttress\Concrete\CommandBus\Provider\LegacyProvider;
+use Buttress\Concrete\CommandBus\Provider\ModernProvider;
 use Buttress\Concrete\Console\Command\Collection\Collection;
 use Buttress\Concrete\Console\Command\HelpCommand;
 use Buttress\Concrete\Exception\BaseException;
@@ -51,8 +51,8 @@ class Console
      * @var string[]
      */
     protected $providers = [
-        Modern::class,
-        Legacy::class
+        ModernProvider::class,
+        LegacyProvider::class
     ];
 
     public function __construct(

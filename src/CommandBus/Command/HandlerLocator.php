@@ -13,6 +13,8 @@ class HandlerLocator implements \League\Tactician\Handler\Locator\HandlerLocator
 
     protected $container;
 
+    protected $handlers = [];
+
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
