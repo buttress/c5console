@@ -113,5 +113,4 @@ class HelpCommand implements Command
         $cli->error(sprintf('Command "%s" not found.', $name));
         return 1;
     }
-
 }

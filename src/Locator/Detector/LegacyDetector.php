@@ -23,5 +23,4 @@ final class LegacyDetector implements Detector
 
         return null;
     }
-
 }

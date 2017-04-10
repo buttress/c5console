@@ -26,5 +26,4 @@ class Collection
     {
         return $this->commands;
     }
-
 }

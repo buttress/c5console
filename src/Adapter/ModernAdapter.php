@@ -63,5 +63,4 @@ class ModernAdapter implements Adapter
 
         return $cms;
     }
-
 }

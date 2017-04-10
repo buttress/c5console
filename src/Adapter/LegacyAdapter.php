@@ -49,5 +49,4 @@ class LegacyAdapter implements Adapter
         // Load in legacy dispatcher
         require_once $path . '/concrete/dispatcher.php';
     }
-
 }

@@ -61,5 +61,4 @@ final class Site
     {
         return (new static)->setVersion($version)->setPath($path);
     }
-
 }

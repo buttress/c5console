@@ -2,7 +2,6 @@
 
 namespace Buttress\Concrete\Console\Command;
 
-
 use Buttress\Concrete\Console\Command\Manager\DefinitionFactory;
 use Buttress\Concrete\Locator\Site;
 use Buttress\Concrete\Route\RouteCollector;
@@ -14,7 +13,7 @@ interface Command
      * Get the command definitions this command provides
      *
      * @param \Buttress\Concrete\Locator\Site|null $site
-     * @return \Buttress\Concrete\Console\Command\Manager\CommandManager[] A list containing a manager for each command this instance offers
+     * @return \Buttress\Concrete\Console\Command\Manager\CommandManager[]
      */
     public function getCommands(Site $site);
 
@@ -26,5 +25,4 @@ interface Command
      * @return void
      */
     public function registerRoutes(RouteCollector $collector, Site $site = null);
-
 }

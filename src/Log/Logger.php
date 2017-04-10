@@ -72,7 +72,7 @@ class Logger implements LoggerInterface
     private function handleDebug($level, $message, array $context)
     {
         if ($this->debug) {
-            $this->cli->output(sprintf(' ~ [%s] %s ', strtoupper($level), $message));;
+            $this->cli->output(sprintf(' ~ [%s] %s ', strtoupper($level), $message));
         }
     }
 
@@ -85,7 +85,7 @@ class Logger implements LoggerInterface
      */
     private function handleError($level, $message, array $context)
     {
-        $this->cli->error(sprintf(' ! [%s] %s ', strtoupper($level), $message));;
+        $this->cli->error(sprintf(' ! [%s] %s ', strtoupper($level), $message));
     }
 
     /**
@@ -110,5 +110,4 @@ class Logger implements LoggerInterface
         // interpolate replacement values into the message and return
         return strtr($message, $replace);
     }
-
 }

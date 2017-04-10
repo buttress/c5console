@@ -29,7 +29,7 @@ class Summary extends \League\CLImate\Argument\Summary
      */
     public function summarize()
     {
-        return "<yellow>Usage</yellow>: <dim>c5</dim> <bold>{$this->command}</bold> <dim>" . $this->short($this->getOrderedArguments()) . '</dim>';
+        return "<yellow>Usage</yellow>: <dim>c5</dim> <bold>{$this->command}</bold> <dim>"
+            . $this->short($this->getOrderedArguments()) . '</dim>';
     }
-
 }

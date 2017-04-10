@@ -53,7 +53,6 @@ class Locator
 
         // If we found a webroot
         if ($path = $this->locator->locateWebroot(__DIR__, $currentPath)) {
-
             // Check each of the detectors to see if we've found a concrete5 site
             foreach ($this->detectors as $detector) {
                 if ($result = $detector->detect($path)) {
@@ -64,5 +63,4 @@ class Locator
 
         return null;
     }
-
 }

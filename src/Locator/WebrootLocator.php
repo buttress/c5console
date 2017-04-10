@@ -59,5 +59,4 @@ class WebrootLocator
 
         return null;
     }
-
 }

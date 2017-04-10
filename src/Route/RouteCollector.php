@@ -65,5 +65,4 @@ final class RouteCollector
     {
         return $this->collector->getData();
     }
-
 }

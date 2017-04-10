@@ -14,5 +14,4 @@ interface Adapter
      * @return void
      */
     public function attach();
-
 }

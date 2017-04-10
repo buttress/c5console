@@ -106,5 +106,4 @@ class CacheCommand implements Command
     {
         return ($site && version_compare($site->getVersion(), '5.5.0') > 0);
     }
-
 }

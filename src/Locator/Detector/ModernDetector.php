@@ -18,5 +18,4 @@ class ModernDetector implements Detector
 
         return null;
     }
-
 }

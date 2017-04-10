@@ -47,5 +47,4 @@ class HandlerLocator implements \League\Tactician\Handler\Locator\HandlerLocator
     {
         $this->handlers[$command] = $handler;
     }
-
 }

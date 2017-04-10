@@ -42,9 +42,8 @@ class Dispatcher
      */
     public static function simpleDispatcher(callable $routeDefinitionCallback, array $options = [])
     {
-        return new static(simpleDispatcher(function(Collector $collector) use ($routeDefinitionCallback) {
+        return new static(simpleDispatcher(function (Collector $collector) use ($routeDefinitionCallback) {
             return $routeDefinitionCallback(new RouteCollector($collector));
         }, $options));
     }
-
 }

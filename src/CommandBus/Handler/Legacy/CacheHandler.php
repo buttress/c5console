@@ -48,5 +48,4 @@ class CacheHandler
         $cache = new Cache;
         $cache->flush();
     }
-
 }

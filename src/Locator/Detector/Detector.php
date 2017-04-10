@@ -12,5 +12,4 @@ interface Detector
      * @return null|\Buttress\Concrete\Locator\Site
      */
     public function detect($path);
-
 }

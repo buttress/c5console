@@ -15,7 +15,7 @@ class CommandManager extends Manager
     /** @var string */
     protected $name;
 
-    public function __construct($command='')
+    public function __construct($command = '')
     {
         $this->command($command);
 
@@ -90,5 +90,4 @@ class CommandManager extends Manager
             ->setFilter($this->filter, $this->all())
             ->summarize();
     }
-
 }

@@ -24,5 +24,4 @@ class Parser extends \League\CLImate\Argument\Parser
 
         return compact('arguments', 'script', 'command');
     }
-
 }

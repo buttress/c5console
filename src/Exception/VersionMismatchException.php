@@ -20,5 +20,4 @@ class VersionMismatchException extends RuntimeException
     {
         return $this->version;
     }
-
 }

@@ -47,11 +47,14 @@ class ServiceProvider extends AbstractServiceProvider
         $container->share(HandlerLocator::class)->withArgument($container);
 
         // Add the command bus
-        $container->add(CommandBus::class, function (ClassNameExtractor $extractor, HandlerLocator $locator, HandleClassNameInflector $inflector){
-            $handlerMiddleware = new CommandHandlerMiddleware($extractor, $locator, $inflector);
+        $container->add(
+            CommandBus::class,
+            function (ClassNameExtractor $extractor, HandlerLocator $locator, HandleClassNameInflector $inflector) {
+                $handlerMiddleware = new CommandHandlerMiddleware($extractor, $locator, $inflector);
 
-            return new CommandBus([$handlerMiddleware]);
-        })->withArguments([ClassNameExtractor::class, HandlerLocator::class, HandleClassNameInflector::class]);
+                return new CommandBus([$handlerMiddleware]);
+            }
+        )->withArguments([ClassNameExtractor::class, HandlerLocator::class, HandleClassNameInflector::class]);
 
 
         // Share the console object
@@ -60,7 +63,7 @@ class ServiceProvider extends AbstractServiceProvider
             ->withArgument(Collection::class)
             ->withArgument(Site::class);
 
-        $container->share(Site::class, function() use ($container) {
+        $container->share(Site::class, function () use ($container) {
             $site = $container->get(Locator::class)->getLocation();
             if (!$site) {
                 $site = new Site();
@@ -81,5 +84,4 @@ class ServiceProvider extends AbstractServiceProvider
         $runner->pushHandler($handler);
         $runner->register();
     }
-
 }

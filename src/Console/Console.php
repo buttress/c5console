@@ -139,7 +139,6 @@ class Console
     private function runCallable(CLImate $cli, callable $callable, array $data)
     {
         try {
-
             return $callable($this->site, ...$data);
         } catch (VersionMismatchException $e) {
             $cli->error('Invalid Version: ' . $e->getMessage())
@@ -150,5 +149,4 @@ class Console
 
         return 1;
     }
-
 }

@@ -23,5 +23,4 @@ class Legacy implements Provider
         // Add a handler for the "Clear" command
         $locator->pushHandler(Clear::class, CacheHandler::class);
     }
-
 }

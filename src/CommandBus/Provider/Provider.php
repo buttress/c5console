@@ -20,5 +20,4 @@ interface Provider
      * @return void
      */
     public function register(HandlerLocator $locator, Site $site);
-
 }

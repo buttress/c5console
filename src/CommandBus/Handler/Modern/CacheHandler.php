@@ -28,5 +28,4 @@ class CacheHandler
         // Get the application and clear caches
         $this->adapter->getApplication()->clearCaches();
     }
-
 }
