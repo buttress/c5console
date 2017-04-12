@@ -1,6 +1,7 @@
 <?php
-namespace Buttress\Concrete\Adapter;
+namespace Buttress\Concrete\Client\Adapter;
 
+use Buttress\Concrete\Client\Connection\LegacyConnection;
 use Buttress\Concrete\Console\Console;
 use Buttress\Concrete\Exception\VersionMismatchException;
 use Buttress\Concrete\Locator\Site;
@@ -55,5 +56,7 @@ class LegacyAdapter implements Adapter
         require_once $path . '/concrete/dispatcher.php';
 
         $this->console->registerErrorHandler();
+
+        return new LegacyConnection();
     }
 }

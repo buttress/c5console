@@ -1,6 +1,7 @@
 <?php
-namespace Buttress\Concrete\Adapter;
+namespace Buttress\Concrete\Client\Adapter;
 
+use Buttress\Concrete\Client\Connection\ModernConnection;
 use Buttress\Concrete\Console\Console;
 use Buttress\Concrete\Locator\Site;
 
@@ -37,9 +38,10 @@ class ModernAdapter implements Adapter
      */
     public function attach()
     {
-        if (!static::$app) {
-            static::$app = $this->resolveApplication();
-        }
+        $connection =  new ModernConnection();
+        $connection->connect($this->resolveApplication());
+
+        return $connection;
     }
 
     /**

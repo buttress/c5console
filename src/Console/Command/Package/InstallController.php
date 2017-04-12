@@ -36,8 +36,7 @@ class InstallController
      */
     public function listPackages(Site $site)
     {
-        $command = new ListPackages();
-        $this->bus->handle($command);
+        $this->bus->handle((new ListPackages())->setCli($this->cli));
     }
 
     /**
@@ -79,13 +78,13 @@ class InstallController
         if (!$handle) {
             $packages = iterator_to_array($this->getAvailablePackages($site));
             if (!$packages) {
-                $this->cli->error('No packages available to install');
+                $this->cli->error('No packages available to uninstall');
             }
 
             $handle = $this->confirmHandle($packages);
         }
 
-        $this->cli->info('Installing ' . $handle);
+        $this->cli->info('Uninstalling ' . $handle);
         $this->bus->handle((new Uninstall())->setHandle($handle));
         $this->cli->green('Uninstalled Successfully!');
     }

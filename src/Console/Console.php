@@ -2,10 +2,9 @@
 
 namespace Buttress\Concrete\Console;
 
+use Buttress\Concrete\CommandBus\Provider\DefaultProvider;
 use Buttress\Concrete\Console\Command\CacheCommand;
 use Buttress\Concrete\CommandBus\Command\HandlerLocator;
-use Buttress\Concrete\CommandBus\Provider\LegacyProvider;
-use Buttress\Concrete\CommandBus\Provider\ModernProvider;
 use Buttress\Concrete\Console\Command\Collection\Collection;
 use Buttress\Concrete\Console\Command\HelpCommand;
 use Buttress\Concrete\Console\Command\PackageCommand;
@@ -16,7 +15,6 @@ use Buttress\Concrete\Locator\Site;
 use Buttress\Concrete\Route\Dispatcher;
 use Buttress\Concrete\Route\RouteCollector;
 use League\CLImate\CLImate;
-use League\Tactician\Exception\MissingHandlerException;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 use Whoops\Handler\PlainTextHandler;
@@ -58,8 +56,7 @@ class Console
      * @var string[]
      */
     protected $providers = [
-        ModernProvider::class,
-        LegacyProvider::class
+        DefaultProvider::class
     ];
 
     public function __construct(

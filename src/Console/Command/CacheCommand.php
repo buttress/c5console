@@ -41,19 +41,11 @@ class CacheCommand implements Command
             $this->cli->output->defaultTo('buffer');
         }
 
-        $this->cli->confirm('Really clear the site cache?');
-
-        // Notify that we've started
-        $this->cli->dim('Clearing cache...');
-
         // Create a new commandbus command
         $command = new Clear();
 
         // Send that command
         $this->bus->handle($command);
-
-        // No exception was thrown so it worked!
-        $this->cli->green('Done!');
     }
 
     /**
