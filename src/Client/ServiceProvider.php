@@ -7,6 +7,7 @@ use Buttress\Concrete\Client\Adapter\AdapterFactory;
 use Buttress\Concrete\Client\Adapter\LegacyAdapter;
 use Buttress\Concrete\Client\Adapter\ModernAdapter;
 use Buttress\Concrete\Client\Connection\Connection;
+use Buttress\Concrete\Console\Console;
 use Buttress\Concrete\Locator\Site;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 
@@ -35,8 +36,11 @@ class ServiceProvider extends AbstractServiceProvider
         })->withArgument(AdapterFactory::class)->withArgument(Site::class);
 
         // Connect to concrete5
-        $container->add(Connection::class, function(Concrete5 $client) {
-            return $client->connect();
+        $container->add(Connection::class, function(Concrete5 $client, Console $console) {
+            if ($result = $client->connect()) {
+                $console->registerErrorHandler();
+                return $result;
+            }
         })->withArgument(Concrete5::class);
     }
 }

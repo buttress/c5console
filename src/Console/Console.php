@@ -9,11 +9,14 @@ use Buttress\Concrete\Console\Command\Collection\Collection;
 use Buttress\Concrete\Console\Command\HelpCommand;
 use Buttress\Concrete\Console\Command\PackageCommand;
 use Buttress\Concrete\Exception\BaseException;
+use Buttress\Concrete\Exception\ErrorHandler;
 use Buttress\Concrete\Exception\RuntimeException;
 use Buttress\Concrete\Exception\VersionMismatchException;
 use Buttress\Concrete\Locator\Site;
 use Buttress\Concrete\Route\Dispatcher;
 use Buttress\Concrete\Route\RouteCollector;
+use League\CLImate\Argument\Argument;
+use League\CLImate\Argument\Manager;
 use League\CLImate\CLImate;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
@@ -41,6 +44,9 @@ class Console
     /** @var \Buttress\Concrete\Locator\Site */
     protected $site;
 
+    /** @var \Buttress\Concrete\Exception\ErrorHandler */
+    protected $errorHandler;
+
     /**
      * A list of the available console commands
      * @var string[]
@@ -62,11 +68,13 @@ class Console
     public function __construct(
         ContainerInterface $container,
         Collection $collection,
-        Site $site
+        Site $site,
+        ErrorHandler $e
     ) {
         $this->container = $container;
         $this->collection = $collection;
         $this->site = $site;
+        $this->errorHandler = $e;
     }
 
     public function run(array $arguments)
@@ -93,6 +101,20 @@ class Console
     {
         $this->registerCommands();
         $this->registerHandlers();
+
+
+        $manager = new Manager();
+        $manager->add('verbose', [
+            'prefix' => 'v',
+            'longPrefix' => 'verbose',
+            'noValue' => true
+        ]);
+        $manager->parse();
+
+        if ($manager->get('verbose')) {
+            $this->errorHandler->setVerbose(true);
+        }
+
         $this->registerErrorHandler();
         return $this;
     }
@@ -172,10 +194,6 @@ class Console
 
     public function registerErrorHandler()
     {
-        $runner = new Run();
-        $handler = new PlainTextHandler($this->container->get(LoggerInterface::class));
-        $handler->loggerOnly(true);
-        $runner->pushHandler($handler);
-        $runner->register();
+        $this->errorHandler->register();
     }
 }

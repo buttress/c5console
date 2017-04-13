@@ -13,6 +13,7 @@ use Buttress\Concrete\Client\Adapter\LegacyAdapter;
 use Buttress\Concrete\Client\Adapter\ModernAdapter;
 use Buttress\Concrete\Console\Command\Collection\Collection;
 use Buttress\Concrete\Console\Console;
+use Buttress\Concrete\Exception\ErrorHandler;
 use Buttress\Concrete\Locator\Locator;
 use Buttress\Concrete\Locator\Site;
 use Buttress\Concrete\Log\Logger;
@@ -70,9 +71,12 @@ class ServiceProvider extends AbstractServiceProvider implements BootableService
 
         // Share the console object
         $container->share(Console::class)
-            ->withArgument($container)
-            ->withArgument(Collection::class)
-            ->withArgument(Site::class);
+            ->withArguments([
+                $container,
+                Collection::class,
+                Site::class,
+                ErrorHandler::class
+            ]);
 
         $container->share(Site::class, function () use ($container) {
             $site = $container->get(Locator::class)->getLocation();
