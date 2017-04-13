@@ -41,6 +41,6 @@ class ServiceProvider extends AbstractServiceProvider
                 $console->registerErrorHandler();
                 return $result;
             }
-        })->withArgument(Concrete5::class);
+        })->withArguments([Concrete5::class, Console::class]);
     }
 }
