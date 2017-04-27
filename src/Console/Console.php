@@ -102,7 +102,6 @@ class Console
         $this->registerCommands();
         $this->registerHandlers();
 
-
         $manager = new Manager();
         $manager->add('verbose', [
             'prefix' => 'v',

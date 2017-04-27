@@ -2,6 +2,7 @@
 
 namespace Buttress\Concrete\Service\Package;
 
+use Loader;
 use Package as LegacyPackage;
 
 class PackageItemFactory
@@ -51,11 +52,23 @@ class PackageItemFactory
      */
     public function fromLegacy(LegacyPackage $package)
     {
+        $installedVersion = null;
+        Loader::model('package');
+        if ($installed = LegacyPackage::getByHandle($package->getPackageHandle())) {
+            $package = $installed;
+            $installedVersion = $this->getPackageVersionInstalled(Loader::db(), $package);
+        }
+
         return (new PackageItem())
             ->setHandle($package->getPackageHandle())
             ->setVersion($package->getPackageVersion())
-            ->setInstalled($package->isPackageInstalled())
-            ->setInstalledVersion($package->getPackageCurrentlyInstalledVersion());
+            ->setInstalled((bool) $package->isPackageInstalled())
+            ->setInstalledVersion($installedVersion);
+    }
+
+    private function getPackageVersionInstalled(\ADOConnection $db, LegacyPackage $package)
+    {
+        return $db->GetOne('SELECT pkgVersion from Packages where pkgID=?', [$package->getPackageID()]);
     }
 
     /**

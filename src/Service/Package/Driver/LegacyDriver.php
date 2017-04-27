@@ -27,12 +27,14 @@ class LegacyDriver implements Driver
     }
 
     /**
-     * @param \Buttress\Concrete\Service\Package\PackageItem $package
+     * @param \Buttress\Concrete\Service\Package\PackageItem $item
      * @return Package|null
      */
-    private function getPackage(PackageItem $package)
+    private function getPackage(PackageItem $item)
     {
-        $package = Loader::package($package->getHandle());
+        if (!$package = Package::getByHandle($item->getHandle())) {
+            $package = Loader::package($item->getHandle());
+        }
         return is_object($package) ? $package : null;
     }
 
@@ -50,6 +52,13 @@ class LegacyDriver implements Driver
 
         if (!$package = $this->getPackage($item)) {
             return new Result(false, 'Invalid package handle.');
+        }
+
+        // Fill the item with real data
+        $item = $this->factory->fromLegacy($package);
+
+        if ($item->isInstalled()) {
+            return new Result(false, sprintf('<underline><bold>%s</bold></underline> is already installed.', $package->getPackageName()));
         }
 
         if ($package->showInstallOptionsScreen()) {
@@ -86,6 +95,13 @@ class LegacyDriver implements Driver
             return new Result(false, 'Invalid package handle.');
         }
 
+        // Fill the item with real data
+        $item = $this->factory->fromLegacy($package);
+
+        if (!$item->isInstalled()) {
+            return new Result(false, sprintf('<underline><bold>%s</bold></underline> hasn\'t been installed yet.', $package->getPackageName()));
+        }
+
         try {
             $package->uninstall();
         } catch (\Exception $e) {
@@ -110,11 +126,11 @@ class LegacyDriver implements Driver
         $package = $this->getPackage($package);
         $errors = [];
 
-        if (is_array($tests = Package::testForInstall($package, false))) {
+        if (is_array($tests = $package->testForInstall($package->getPackageHandle(), false))) {
             $errors = Package::mapError($tests);
         }
 
-        return new Result((bool) $errors, $errors);
+        return new Result((bool) !$errors, $errors);
     }
 
     /**
