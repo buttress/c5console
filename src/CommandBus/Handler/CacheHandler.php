@@ -36,7 +36,6 @@ class CacheHandler
      */
     public function handleClear(Clear $clear)
     {
-
         if ($this->connection instanceof ModernConnection) {
             $this->clearModern($this->connection);
         } else {
@@ -51,14 +50,15 @@ class CacheHandler
     private function clearModern(ModernConnection $connection)
     {
         $app = $connection->getApplication();
-        $site = $app->make(Service::class)->getDefault()->getSiteName();
 
-        if ($this->confirm($site)) {
-            $app->clearCaches();
-            $this->notify($site);
+        if (class_exists(Service::class)) {
+            $site = $app->make(Service::class)->getDefault()->getSiteName();
         } else {
-            $this->cli->dim('okay.');
+            $site = $app['config']['concrete.site'];
         }
+
+        $app->clearCaches();
+        $this->notify($site);
     }
 
     /**
@@ -68,24 +68,10 @@ class CacheHandler
     private function clearLegacy(LegacyConnection $connection)
     {
         $site = SITE;
-        if ($this->confirm($site)) {
-            Loader::library('cache');
-            $cache = new Cache;
-            $cache->flush();
-            $this->notify($site);
-        } else {
-            $this->cli->dim('okay.');
-        }
-    }
-
-    private function confirm($site)
-    {
-        /** @var \League\CLImate\TerminalObject\Dynamic\Confirm $input */
-        $input = $this->cli->confirm(
-            sprintf('Really clear the cache on <bold>%s</bold>?', $site)
-        );
-
-        return strtolower($input->accept(['Yes', 'No'], true)->prompt()) === 'yes';
+        Loader::library('cache');
+        $cache = new Cache;
+        $cache->flush();
+        $this->notify($site);
     }
 
     private function notify($site)
