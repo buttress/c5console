@@ -60,6 +60,10 @@ class ErrorHandler
      */
     public function handleError($code, $message, $file, $line, $context)
     {
+        if (!(error_reporting() & $code)) {
+            return false;
+        }
+
         $cli = $this->cli;
 
         switch ($code) {
@@ -83,10 +87,6 @@ class ErrorHandler
             default:
                 $type = 'Unknown Error';
                 break;
-        }
-
-        if (!(error_reporting() & $code)) {
-            return false;
         }
 
         $cli->errorInline(sprintf('<bold>%s</bold> ', $type))

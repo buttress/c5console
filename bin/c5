@@ -15,12 +15,6 @@ foreach ($check as $path) {
     }
 }
 
-function dd(...$args)
-{
-    var_dump(...$args);
-    exit;
-}
-
 $container = new \League\Container\Container();
 
 // Enable reflection type resolution
@@ -29,3 +23,16 @@ $container->addServiceProvider(\Buttress\Concrete\Provider\LeagueContainer\Servi
 
 // Run the Console
 die($container->get(\Buttress\Concrete\Console\Console::class)->prepare()->run($argv));
+
+
+function dd(...$args)
+{
+    ob_start();
+    var_dump(...$args);
+    $result = ob_get_contents();
+    ob_end_clean();
+
+    global $container;
+    $container->get(\League\CLImate\CLImate::class)->output($result);
+    exit;
+}
