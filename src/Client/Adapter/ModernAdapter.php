@@ -68,8 +68,10 @@ class ModernAdapter implements Adapter
         $cms = require $path . '/concrete/bootstrap/start.php';
 
         // Boot the runtime
-        $runtime = $cms->getRuntime();
-        $runtime->boot();
+        if (method_exists($cms, 'getRuntime')) {
+            $runtime = $cms->getRuntime();
+            $runtime->boot();
+        }
 
         $this->console->registerErrorHandler();
         return $cms;

@@ -12,6 +12,9 @@ use Concrete\Core\Foundation\ClassLoader;
 use Concrete\Core\Package\BrokenPackage;
 use Concrete\Core\Package\Package;
 use Concrete\Core\Package\PackageService;
+use Concrete\Core\Support\Facade\Database;
+use Concrete\Core\Support\Facade\DatabaseORM;
+use Concrete\Core\Support\Facade\Events;
 use League\CLImate\CLImate;
 
 class ModernDriver implements Driver
@@ -64,15 +67,22 @@ class ModernDriver implements Driver
         }
 
         $loader = new ClassLoader();
-        $loader->registerPackageCustomAutoloaders($package);
+        if (method_exists($loader, 'registerPackageCustomAutoloaders')) {
+            $loader->registerPackageCustomAutoloaders($package);
+        }
 
-        if (is_object($tests = $package->testForInstall())) {
+        if (is_object($tests = $this->testForInstall($package))) {
             return new Result(false, $tests->getList());
         }
 
         try {
-            $packageService = $this->connection->getApplication()->make(PackageService::class);
-            $result = $packageService->install($package, []);
+            $app = $this->connection->getApplication();
+
+            if ($app->bound(PackageService::class)) {
+                $result = $app->make(PackageService::class)->install($package, []);
+            } else {
+                $result = $package->install([]);
+            }
         } catch (\Exception $e) {
             return new Result(false, $e->getMessage());
         }
@@ -175,6 +185,16 @@ class ModernDriver implements Driver
         $notInstalled = Package::getAvailablePackages();
         foreach ($notInstalled as $item) {
             yield $this->factory->fromModern($item);
+        }
+    }
+
+    private function testForInstall($package)
+    {
+        $method = new \ReflectionMethod($package, 'testForInstall');
+        if ($method->isStatic()) {
+            return \Package::testForInstall($package->getPackageHandle(), true);
+        } else {
+            return $package->testForInstall(true);
         }
     }
 }

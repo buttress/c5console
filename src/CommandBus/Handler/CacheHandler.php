@@ -3,11 +3,14 @@
 namespace Buttress\Concrete\CommandBus\Handler;
 
 use Buttress\Concrete\Client\Connection\Connection;
+use Buttress\Concrete\Client\Connection\LegacyConnection;
 use Buttress\Concrete\Client\Connection\ModernConnection;
 use Buttress\Concrete\CommandBus\Command\Cache\Clear;
 use Buttress\Concrete\Locator\Site;
+use Cache;
 use Concrete\Core\Site\Service;
 use League\CLImate\CLImate;
+use Loader;
 
 class CacheHandler
 {
@@ -60,7 +63,7 @@ class CacheHandler
 
     /**
      * Clear cache for a LegacyConnection
-     * @param \Buttress\Concrete\CommandBus\Handler\LegacyConnection $connection
+     * @param LegacyConnection $connection
      */
     private function clearLegacy(LegacyConnection $connection)
     {

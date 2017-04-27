@@ -11,7 +11,7 @@ class LegacyConnection implements Connection
      */
     public function isConnected()
     {
-        return class_exists(\InstallController::class);
+        return class_exists(\Concrete5_Model_Collection::class);
     }
 
     /**

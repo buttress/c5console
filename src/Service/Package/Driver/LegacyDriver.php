@@ -3,9 +3,12 @@
 namespace Buttress\Concrete\Service\Package\Driver;
 
 use Buttress\Concrete\Client\Connection\Connection;
+use Buttress\Concrete\Exception\RuntimeException;
 use Buttress\Concrete\Service\Package\PackageItem;
+use Buttress\Concrete\Service\Package\PackageItemFactory;
 use Buttress\Concrete\Service\Result;
 use League\CLImate\CLImate;
+use Loader;
 use Package;
 
 class LegacyDriver implements Driver
@@ -53,7 +56,7 @@ class LegacyDriver implements Driver
             return new Result(false, 'Install options are not currently supported. Please install through the dashboard.');
         }
 
-        $tests = $this->test($package);
+        $tests = $this->test($item);
         if (!$tests->success()) {
             return $tests;
         }
@@ -134,11 +137,12 @@ class LegacyDriver implements Driver
     /**
      * Get a list of package item objects
      * @return PackageItem[]
+     * @throws \Buttress\Concrete\Exception\RuntimeException
      */
     public function all()
     {
         if (!$this->connection->isConnected()) {
-            return new Result(false, 'Not connected to concrete5 site.');
+            throw new RuntimeException('Not connected to concrete5 site.');
         }
 
         $packages = Package::getAvailablePackages(false);

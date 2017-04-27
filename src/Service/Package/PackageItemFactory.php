@@ -19,8 +19,21 @@ class PackageItemFactory
             $installed = true;
         } else {
             $installed = false;
-            if (is_array($errors = $package->testForInstall(true))) {
+
+            $method = new \ReflectionMethod($package, 'testForInstall');
+            if ($method->isStatic()) {
+                $installed = $package->isPackageInstalled();
+                $errors = $package::testForInstall($package->getPackageHandle(), true);
+            } else {
+                $errors = $package->testForInstall(true);
+            }
+
+            if (is_array($errors)) {
                 $installed = in_array($package::E_PACKAGE_INSTALLED, $errors, true);
+            }
+
+            if ($installed) {
+                $errors = false;
             }
         }
 
