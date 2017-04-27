@@ -81,10 +81,8 @@ class ServiceProvider extends AbstractServiceProvider implements BootableService
         $container->share(Site::class, function () use ($container) {
             $site = $container->get(Locator::class)->getLocation();
             if (!$site) {
-                $site = new Site();
+                $site = Site::create();
             }
-
-            if ($site->getVersion())
 
             return $site;
         });

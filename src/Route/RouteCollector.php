@@ -28,7 +28,14 @@ final class RouteCollector
      */
     public function addRoute($route, $handler)
     {
-        $this->collector->addRoute('get', $route, $handler);
+        $routes = $route;
+        if (!is_array($routes) && !$routes instanceof \Traversable) {
+            $routes = [$route];
+        }
+
+        foreach ($routes as $string) {
+            $this->collector->addRoute('get', $string, $handler);
+        }
     }
 
     /**
@@ -41,9 +48,16 @@ final class RouteCollector
      */
     public function addGroup($prefix, callable $callback)
     {
-        $this->collector->addGroup($prefix . ':', function (Collector $collector) use ($callback) {
-            return $callback(new RouteCollector($collector));
-        });
+        $prefixes = $prefix;
+        if (!is_array($prefixes) && !$prefixes instanceof \Traversable) {
+            $prefixes = [$prefix];
+        }
+
+        foreach ($prefixes as $string) {
+            $this->collector->addGroup($string . ':', function (Collector $collector) use ($callback) {
+                return $callback(new RouteCollector($collector));
+            });
+        }
     }
 
     /**

@@ -35,7 +35,10 @@
     "autoload": {
         "psr-4": {
             "Buttress\\Concrete\\": "src"
-        }
+        },
+        "files": [
+            "src/Support/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

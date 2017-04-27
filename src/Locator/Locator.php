@@ -42,17 +42,18 @@ class Locator
      * Locate the concrete5 core we're wanting
      *
      * @param string|null $currentPath If null is passed, getcwd will be used.
+     * @param bool $recursive
      * @return \Buttress\Concrete\Locator\Site|null
      */
-    public function getLocation($currentPath = null)
+    public function getLocation($currentPath = null, $recursive = true)
     {
         // If we weren't given a currentpath, just use the cwd
         if (!$currentPath) {
             $currentPath = getcwd();
         }
 
-        // If we found a webroot
-        if ($path = $this->locator->locateWebroot(__DIR__, $currentPath)) {
+        // If we have found a webroot
+        if ($path = $this->locator->searchWorkingDirectory($currentPath, $recursive)) {
             // Check each of the detectors to see if we've found a concrete5 site
             foreach ($this->detectors as $detector) {
                 if ($result = $detector->detect($path)) {

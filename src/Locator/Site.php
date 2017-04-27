@@ -5,7 +5,7 @@ namespace Buttress\Concrete\Locator;
 /**
  * A concrete5 site
  */
-final class Site
+final class Site implements SiteInterface
 {
 
     /** @var string The path to the webroot */

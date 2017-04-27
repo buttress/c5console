@@ -8,6 +8,7 @@ use Buttress\Concrete\CommandBus\Command\HandlerLocator;
 use Buttress\Concrete\Console\Command\Collection\Collection;
 use Buttress\Concrete\Console\Command\HelpCommand;
 use Buttress\Concrete\Console\Command\PackageCommand;
+use Buttress\Concrete\Console\Command\SiteCommand;
 use Buttress\Concrete\Exception\BaseException;
 use Buttress\Concrete\Exception\ErrorHandler;
 use Buttress\Concrete\Exception\RuntimeException;
@@ -54,7 +55,8 @@ class Console
     protected $commands = [
         CacheCommand::class,
         HelpCommand::class,
-        PackageCommand::class
+        PackageCommand::class,
+        SiteCommand::class
     ];
 
     /**
