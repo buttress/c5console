@@ -57,6 +57,11 @@ class LegacyAdapter implements Adapter
 
         $this->console->registerErrorHandler();
 
+        // Adodb Stuff
+        $GLOBALS['ADODB_ASSOC_CASE'] = 2;
+        $GLOBALS['ADODB_ACTIVE_CACHESECS'] = 300;
+        $GLOBALS['ADODB_CACHE_DIR'] = DIR_FILES_CACHE_DB;
+
         return new LegacyConnection();
     }
 }

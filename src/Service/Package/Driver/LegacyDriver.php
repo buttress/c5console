@@ -70,11 +70,8 @@ class LegacyDriver implements Driver
             return $tests;
         }
 
-        try {
-            $package->install([]);
-        } catch (Exception $e) {
-            return new Result(false, [$e->getMessage()]);
-        }
+        // Let exceptions fall through
+        $package->install();
 
         return new Result();
     }
